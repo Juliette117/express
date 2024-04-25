@@ -8,7 +8,7 @@ const path = require('path');
 
 const fs = require('fs');
 
-const allBooksPath = path.join(__dirname, '../livres.json')
+const allBooksPath = path.join(__dirname, '../data/livres.json')
 
 
 router.get('/', (req, res) => {
