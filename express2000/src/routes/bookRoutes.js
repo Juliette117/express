@@ -51,12 +51,29 @@ router.get('/:id', (req, res) => {
 
 })
 
-router.get('/ajout-bouquin', (req, res) => {
-    res.send('Ajout livre');
-})
+// router.get('/ajout-bouquin', (req, res) => {
+//     res.send('Ajout livre');
+// })
 
 router.post('/ajout-bouquin', (req, res) => {
     let addData = req.body;
+    fs.readFile(allBooksPath, 'utf8', (err, data) => {
+        if(err) {
+            console.error(500).send('erreur serveur');
+            return;
+        }
+        const allBooks = JSON.parse(data);
+        allBooks.push(addData)
+
+        fs.writeFile(allBooksPath, JSON.stringify(allBooks), err => {
+            if(err) {
+                console.error('Erreur', err);
+                res.status(500).send('erreur serveur');
+                return;
+
+            }
+        })
+    })
     res.render({ addData })
 })
 
